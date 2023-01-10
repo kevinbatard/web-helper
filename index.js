@@ -10,7 +10,7 @@ const port = 8000;
 const client = new Client({
     user: process.env.DB_USERNAME,
     host: process.env.DB_HOST,
-    database: process.env.DB_NAME, 
+    database: process.env.DB_NAME,
     password: process.env.DB_PASSWORD,
     port: 5432,
 });
@@ -100,7 +100,7 @@ app.get('/api/tickets/:id', async (req, res) => {
         res.status(404).json(
             {
                 status: "FAIL",
-                message: "Nécessite un nombre valable en tant qu'Id"
+                message: "Type de donnée attendu incorrect, type attendu Number"
             });
     };
 });
@@ -187,7 +187,7 @@ app.delete('/api/tickets/:id', async (req, res) => {
         res.status(404).json(
             {
                 status: "FAIL",
-                message: "L'id ne correspond à aucun ticket existant"
+                message: "Type de donnée attendu incorrect, type attendu Number"
             }
         )
 
@@ -208,7 +208,12 @@ app.put('/api/tickets/:id', async (req, res) => {
                     const data = await client.query('UPDATE tickets SET  done = $3, message = $1 WHERE id = $2 RETURNING *', [updateMess, updateId, updateDone])
 
                     if (data.rowCount > 0) {
-                        res.status(201).json({ status: "success", message: "données modifiées", data: data.rows[0] })
+                        res.status(201).json({
+                            status: "success",
+                            message: "données modifiées",
+                            data: data.rows[0]
+                        }
+                        )
                     }
                     else {
                         res.status(404).json(
@@ -248,7 +253,7 @@ app.put('/api/tickets/:id', async (req, res) => {
         res.status(404).json(
             {
                 status: "FAIL",
-                message: "Nécessite un nombre valable en tant qu'Id"
+                message: "Type de donnée attendu incorrect, type attendu Number"
             });
     };
 });
