@@ -47,6 +47,7 @@ app.get('/api/tickets', async (req, res) => {
         res.status(200).json(
             {
                 status: "succes",
+                message: "Affichage des tickets",
                 data: data.rows
             }
         )
@@ -56,7 +57,8 @@ app.get('/api/tickets', async (req, res) => {
         res.status(500).json(
             {
                 status: "FAIL",
-                message: "erreur serveur"
+                message: "erreur serveur",
+                data: null
             }
         )
     }
@@ -72,6 +74,7 @@ app.get('/api/tickets/:id', async (req, res) => {
                 res.status(200).json(
                     {
                         status: "success",
+                        message: "Affichage du ticket demandé",
                         data: data.rows[0]
                     }
                 )
@@ -81,7 +84,8 @@ app.get('/api/tickets/:id', async (req, res) => {
                 res.status(404).json(
                     {
                         status: "FAIL",
-                        message: "Aucun ticket ne correspond à cet id"
+                        message: "Aucun ticket ne correspond à cet id",
+                        data: null
                     }
                 )
             }
@@ -91,7 +95,8 @@ app.get('/api/tickets/:id', async (req, res) => {
             res.status(500).json(
                 {
                     status: "FAIL",
-                    message: "erreur serveur"
+                    message: "erreur serveur",
+                    data: null
                 }
             )
         }
@@ -100,7 +105,8 @@ app.get('/api/tickets/:id', async (req, res) => {
         res.status(404).json(
             {
                 status: "FAIL",
-                message: "Type de donnée attendu incorrect, type attendu Number"
+                message: "Type de donnée attendu incorrect, type attendu Number",
+                data: null
             });
     };
 });
@@ -129,7 +135,8 @@ app.post('/api/tickets', async (req, res) => {
             res.status(500).json(
                 {
                     status: "FAIL",
-                    message: "erreur serveur"
+                    message: "erreur serveur",
+                    data: null
                 }
             )
         }
@@ -139,7 +146,8 @@ app.post('/api/tickets', async (req, res) => {
         res.status(400).json(
             {
                 status: "FAIL",
-                message: "valeur manquante"
+                message: "valeur manquante",
+                data: null
             }
         )
     };
@@ -160,7 +168,8 @@ app.delete('/api/tickets/:id', async (req, res) => {
                 res.status(200).json(
                     {
                         status: "success",
-                        message: "ticket supprimé !"
+                        message: "ticket supprimé !",
+                        data: null
                     }
                 )
             }
@@ -169,7 +178,8 @@ app.delete('/api/tickets/:id', async (req, res) => {
                 res.status(404).json(
                     {
                         status: "FAIL",
-                        message: "L'id ne correspond à aucun ticket existant"
+                        message: "L'id ne correspond à aucun ticket existant",
+                        data: null
                     }
                 )
             }
@@ -179,7 +189,8 @@ app.delete('/api/tickets/:id', async (req, res) => {
             res.status(500).json(
                 {
                     status: "FAIL",
-                    message: "erreur serveur"
+                    message: "erreur serveur",
+                    data: null
                 }
             )
         }
@@ -187,7 +198,8 @@ app.delete('/api/tickets/:id', async (req, res) => {
         res.status(404).json(
             {
                 status: "FAIL",
-                message: "Type de donnée attendu incorrect, type attendu Number"
+                message: "Type de donnée attendu incorrect, type attendu Number",
+                data: null
             }
         )
 
@@ -219,7 +231,8 @@ app.put('/api/tickets/:id', async (req, res) => {
                         res.status(404).json(
                             {
                                 status: "FAIL",
-                                message: "Aucun ticket ne correspond à cet id"
+                                message: "Aucun ticket ne correspond à cet id",
+                                data: null
                             }
                         )
                     }
@@ -229,14 +242,16 @@ app.put('/api/tickets/:id', async (req, res) => {
                     res.status(500).json(
                         {
                             status: "FAIL",
-                            message: "erreur serveur"
+                            message: "erreur serveur",
+                            data: null
                         })
                 }
             } else {
                 res.status(400).json(
                     {
                         status: "FAIL",
-                        message: "Booléen attendu"
+                        message: "Booléen attendu",
+                        data: null
                     }
                 )
             }
@@ -244,7 +259,8 @@ app.put('/api/tickets/:id', async (req, res) => {
             res.status(400).json(
                 {
                     status: "FAIL",
-                    message: "valeur manquante"
+                    message: "valeur manquante",
+                    data: null
                 }
             )
         };
@@ -253,13 +269,20 @@ app.put('/api/tickets/:id', async (req, res) => {
         res.status(404).json(
             {
                 status: "FAIL",
-                message: "Type de donnée attendu incorrect, type attendu Number"
+                message: "Type de donnée attendu incorrect, type attendu Number",
+                data: null
             });
     };
 });
 
 app.all('*', function (req, res) {
-    res.status(404).end('Not found')
+    res.status(404).json(
+
+            {
+                status: "FAIL",
+                message: "Route incorrecte",
+                data: null
+            }); 
 });
 
 // ecoute le port 8000
